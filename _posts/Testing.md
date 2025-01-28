@@ -1,6 +1,6 @@
 ---
 title: "Testing"
-date: 2025-01-28 00:00:00 +0800
+date: 2025-01-28
 categories: [Testing]
 tags: [Testing]
 ---
