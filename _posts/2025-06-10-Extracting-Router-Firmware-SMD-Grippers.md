@@ -56,11 +56,11 @@ Once the router is open, look for the flash memory chip—it’s usually an 8-pi
 
 ![Dot](/assets/img/firmware_extraction/dot.jpg)
 
-![SOP8](/assets/img/firmware_extraction/sop8.jpg)
+![SOP8](/assets/img/firmware_extraction/sop8.png)
 
 When we use SMD grippers, we need to have a little patience and dexterity to connect them, but eventually everything will be properly connected. Then we insert the jumpers into the SOIC8 to DIP8 adapter (pay attention to the numbering on the adapter to connect it correctly—pin 1 of the chip goes to connection 1, and so on).
 
-![Front](/assets/img/firmware_extraction/front.jpg)
+![Front](/assets/img/firmware_extraction/front0.jpg)
 
 After that, we need to connect it to the CH341 programmer. Again, we need to pay attention, but this time to a different detail. If our chip is a 24xx or 25xx series, this indicates the type of memory it uses:
 If it's a 25xx series, it's an SPI (Serial Peripheral Interface) flash memory. If it's a 24xx series, it's an I²C (Inter-Integrated Circuit) EEPROM, which communicates over the I²C protocol.
