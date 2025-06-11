@@ -1,6 +1,6 @@
 ---
 title: "Extracting Router Firmware Using SMD Grippers"
-date: 2025-01-28
+date: 2025-06-11
 categories: ["Hardware Hacking"]
 tags: ["Hardware Hacking", "Firmware Extraction"] 
 ---
@@ -67,14 +67,11 @@ If it's a 25xx series, it's an SPI (Serial Peripheral Interface) flash memory. I
 
 In our case, the chip is from the 25xx series. After everything is connected, we can plug the programmer into our PC.
 
-
 ![CH341 Programmer](/assets/img/firmware_extraction/ch341.jpg)
 
 Below is what the setup looks like. I’ll admit mine is a bit messy, but the important thing is — it works!
 
-
 ![Extraction Setup](/assets/img/firmware_extraction/extraction_setup.jpg)
-
 
 ### flashrom
 
