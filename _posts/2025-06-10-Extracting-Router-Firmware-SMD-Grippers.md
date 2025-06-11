@@ -5,8 +5,6 @@ categories: ["Hardware Hacking"]
 tags: ["Hardware Hacking", "Firmware Extraction"] 
 ---
 
-# Extracting Router Firmware Using SMD Grippers
-
 A few months ago, I was tinkering with my old router and started wondering how I could extract its firmware. I was curious if it was possible to reverse engineer it and find any security flaws. Even though it’s a pretty outdated device, I figured I could still learn a lot about hardware hacking—especially about how firmware extraction works.
 
 ## So, what is firmware exactly?
@@ -50,8 +48,6 @@ For connecting to the chip, you can use a SOIC8 test clip, an online test probe,
 
 For example, in the image, you can see an online test probe on the left, SMD grabbers in the center, and a SOIC8 test clip on the right.
 
-
-
 ## Firmware Extraction
 
 First, we need to physically access the flash memory inside the router. Start by using a screwdriver to remove the screws and open up the case.
@@ -59,7 +55,6 @@ First, we need to physically access the flash memory inside the router. Start by
 Once the router is open, look for the flash memory chip—it’s usually an 8-pin SMD (Surface-Mount Device) chip. You’ll need to identify it correctly; most of the time, there's a small dot or notch on the chip indicating pin 1, which is important when connecting it to the programmer.
 
 ![Dot](/assets/img/firmware_extraction/dot.jpg)
-
 
 ![SOP8](/assets/img/firmware_extraction/sop8.jpg)
 
