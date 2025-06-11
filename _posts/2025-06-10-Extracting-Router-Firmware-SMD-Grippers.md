@@ -95,7 +95,7 @@ To analyze the extracted firmware, run the following command:
 binwalk firmware.bin
 ```
 
-![Binwalk](/assets/img/firmware_extraction/binwalk.jpg)
+![Binwalk](/assets/img/firmware_extraction/binwalk.png)
 
 If you want to extract the binary’s contents to analyze its files and data in more detail, run:
 
