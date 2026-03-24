@@ -1,6 +1,6 @@
 ---
 title: "Giving a New Purpose to an Old Phone — Installing LineageOS 18.1 on the Moto G5"
-date: 2029-03-23
+date: 2026-03-23
 categories: ["Custom ROMs"]
 tags: ["Custom ROMs"] 
 ---
