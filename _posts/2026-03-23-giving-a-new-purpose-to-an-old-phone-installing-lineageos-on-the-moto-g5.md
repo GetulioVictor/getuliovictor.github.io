@@ -1,11 +1,9 @@
-
 ---
 title: "Giving a New Purpose to an Old Phone — Installing LineageOS 18.1 on the Moto G5"
 date: 2029-03-23
 categories: ["Custom ROMs"]
 tags: ["Custom ROMs"] 
 ---
-
 
 ## Why?
 
@@ -250,7 +248,7 @@ In TWRP:
 
 1. Tap **Wipe > Format Data** → type `yes` → confirm (this removes encryption)
 
-![Dot](/assets/img/root_lineageos-18.1/wipe.jpg)
+![Dot](/assets/img/root_lineageos-18.1/twrp.jpg)
 
 2. Tap **Wipe > Advanced Wipe** → check Dalvik, Cache, System → swipe to wipe
 
@@ -408,7 +406,6 @@ apt install nmap sqlmap metasploit-framework wireshark
 
 ![Dot](/assets/img/root_lineageos-18.1/root.jpg)
 
-
 ---
 
 ## Troubleshooting
@@ -430,7 +427,7 @@ echo 'SUBSYSTEM=="usb", ATTR{idVendor}=="22b8", MODE="0666", GROUP="plugdev"' | 
 sudo udevadm control --reload-rules && sudo udevadm trigger
 ```
 
-### "This package requires firmware from an Android 8.1 based stock ROM"
+### This package requires firmware from an Android 8.1 based stock ROM
 You're still on Android 7. Follow Step 6 to flash the stock 8.1 firmware first.
 
 ### TWRP keeps intercepting the boot
@@ -445,16 +442,13 @@ Hold **Volume Down + Volume Up + Power** simultaneously for 10 seconds to enter 
 
 ## References
 
-[Lineage OS 18.1 Moto G5 Cedric](https://archive.org/download/lineage-18.1-20240306-nightly-signed_20240310_1104/Motorola/Motorola%20-%20moto%20g5%20-%20cedric/)
-[Moto G5 Cedric Android 8.1](https://drive.usercontent.google.com/download?id=1LAQFKLkyxvttP7regxsfk9cudJeuKWCD&export=download)
-[TWRP Moto G5 Cedric](https://dl.twrp.me/cedric/)
-[F-Droid](https://f-droid.org/)
-[Magisk](https://github.com/topjohnwu/Magisk/releases)
-[Kali NetHunter Repo](https://store.nethunter.com/repo)
-[Lineage OS Wiki - Motorola Moto G5](https://wiki.lineageos.org/devices/cedric/)
-[android_kernel_motorola_msm8953](https://github.com/LineageOS/android_kernel_motorola_msm8953)
-[Motorola Support - What devices are supported by the Bootloader Unlock program?](https://en-us.support.motorola.com/app/utils/guided_assistant/g_id/8133)
-[Motorola's bootloader unlock page](https://motorola-global-portal.custhelp.com/app/standalone/bootloader/unlock-your-device-b)
-
-
-
+- [Lineage OS 18.1 Moto G5 Cedric](https://archive.org/download/lineage-18.1-20240306-nightly-signed_20240310_1104/Motorola/Motorola%20-%20moto%20g5%20-%20cedric/)
+- [Moto G5 Cedric Android 8.1](https://drive.usercontent.google.com/download?id=1LAQFKLkyxvttP7regxsfk9cudJeuKWCD&export=download)
+- [TWRP Moto G5 Cedric](https://dl.twrp.me/cedric/)
+- [F-Droid](https://f-droid.org/)
+- [Magisk](https://github.com/topjohnwu/Magisk/releases)
+- [Kali NetHunter Repo](https://store.nethunter.com/repo)
+- [Lineage OS Wiki - Motorola Moto G5](https://wiki.lineageos.org/devices/cedric/)
+- [android_kernel_motorola_msm8953](https://github.com/LineageOS/android_kernel_motorola_msm8953)
+- [Motorola Support - What devices are supported by the Bootloader Unlock program?](https://en-us.support.motorola.com/app/utils/guided_assistant/g_id/8133)
+- [Motorola's bootloader unlock page](https://motorola-global-portal.custhelp.com/app/standalone/bootloader/unlock-your-device-b)
