@@ -49,7 +49,7 @@ where Z_ii are the self-impedances of each element and Z_ij are the mutual imped
 
 The radiation pattern graphically represents how the antenna distributes radiated power in space as a function of direction. For a 3-element Yagi-Uda, the result is a well-defined main lobe concentrated in the direction of the director and a reduced back lobe in the direction of the reflector.
 
-![radiation-pattern-yagi](/assets/img/antena-yagi/yagi.jpg)
+![radiation-pattern-yagi](/assets/img/yagi-antenna/yagi.jpg)
 
 *Typical radiation pattern of a 3-element Yagi-Uda antenna. Source: Hali, Antenas, SlideServe, 2014.*
 
@@ -59,7 +59,7 @@ The radiation pattern graphically represents how the antenna distributes radiate
 
 The beamwidth is defined as the angle formed by the points at which the radiated power density falls to half of its maximum value. This angle is defined as the half-power angle.
 
-![beamwidth-diagram](/assets/img/antena-yagi/dig.png)
+![beamwidth-diagram](/assets/img/yagi-antenna/dig.png)
 
 *Illustration of the antenna beamwidth (half-power angle). Source: Borges, R. M., Antenas, 2026.*
 
@@ -160,7 +160,7 @@ $$
 
 Consulting the dimension curves for director and reflector elements (shown below), the recommended lengths for this ratio are approximately 0.484 lambda for the reflector and 0.449 lambda for the director.
 
-![nbs-yagi-curves](/assets/img/antena-yagi/Curvas de Dimensão Diretor e Refletor.png)
+![nbs-yagi-curves](/assets/img/yagi-antenna/curvas-dimensao-diretor-refletor.png)
 
 *Graph relating the diameter-to-wavelength ratio to the length of the parasitic elements. Source: Viezbicke, P. P., Yagi Antenna Design, NBS Technical Note 688, 1986.*
 
@@ -220,13 +220,13 @@ For complementary validation, an RTL-SDR with GQRX was used for reception and a 
 
 Additional tests were performed to validate the second antenna using GQRX, an open-source SDR (Software Defined Radio) application that helps visualize how the signal is received by the RTL-SDR when the Flipper Zero is used as a transmitter. The coaxial cable is connected to the RTL-SDR on one end and wrapped around the driven dipole on the other end. Due to soldering issues, a loss of approximately 3 to 4 dB is expected at this connection.
 
-![rtl-sdr](/assets/img/antena-yagi/rtl.jpg)
+![rtl-sdr](/assets/img/yagi-antenna/rtl.jpg)
 
 *RTL-SDR receiver used in the complementary tests. Source: Author.*
 
 For signal transmission, the following procedure was used on the Flipper Zero: select Sub-GHz, then Read Raw, then Config, set the frequency to 915 MHz, record the signal, and then select it for transmission.
 
-![flipper-zero-procedure](/assets/img/antena-yagi/flipper.jpg)
+![flipper-zero-procedure](/assets/img/yagi-antenna/flipper.jpg)
 
 *Flipper Zero configuration procedure for signal transmission at 915 MHz. Source: Author.*
 
@@ -236,11 +236,11 @@ When there is no transmission, the dBFS values show the background noise floor o
 
 When the signal is transmitted, the dBFS value shows the signal level relative to full scale. Peaks in dBFS above the noise floor indicate the presence of the signal, and the difference between the signal peak and the noise floor gives the approximate SNR. The signal was found at -47 dBFS over a noise floor of -62 dBFS, giving an SNR of approximately 15 dB.
 
-![gqrx-screenshot-1](/assets/img/antena-yagi/simulacao-gqr.jpg)
+![gqrx-screenshot-1](/assets/img/yagi-antenna/simulacao-gqr.jpg)
 
 *GQRX waterfall and spectrum display during the test. Source: Author.*
 
-![gqrx-screenshot-2](/assets/img/antena-yagi/simu-gqrx.jpg)
+![gqrx-screenshot-2](/assets/img/yagi-antenna/simu-gqrx.jpg)
 
 *GQRX spectrum detail showing the received signal at 915 MHz. Source: Author.*
 
@@ -254,17 +254,17 @@ In MMANA-GAL, each antenna element was manually entered using its Cartesian star
 
 Element 1 is the driven dipole, positioned at the origin with a total length of 152 mm. Element 2 is the reflector, displaced 85 mm behind the dipole with a length of 158 mm, slightly longer than the dipole as predicted by Yagi-Uda theory. Element 3 is the director, positioned 60 mm in front of the dipole with a length of 136 mm, shorter than the dipole, also consistent with the theoretical design. All elements lie in the XY plane with Z = 0, characterizing a linear planar antenna.
 
-![mmana-element-values](/assets/img/antena-yagi/val.png)
+![mmana-element-values](/assets/img/yagi-antenna/val.png)
 
 *Element coordinates and dimensions as entered in MMANA-GAL. Source: Author.*
 
 The simulation results confirm the expected behavior for a 3-element Yagi-Uda operating at 915 MHz in free space. The main lobe is well defined, with a gain of 7.17 dBi, and the front-to-back ratio of 14.97 dB demonstrates good rejection of signals coming from the rear. The input impedance of 48.81 + j1.56 ohms and SWR of 1.0 indicate that, in the simulated model, the matching with the 50 ohm line is nearly ideal. These results, however, represent an idealized condition, and the deviations observed in the physical measurements reinforce the influence of mechanical imperfections and the absence of a balun on real-world performance.
 
-![mmana-calculate-results](/assets/img/antena-yagi/calc.png)
+![mmana-calculate-results](/assets/img/yagi-antenna/calc.png)
 
 *MMANA-GAL Calculate results (No Loss condition). Source: Author.*
 
-![mmana-radiation-pattern](/assets/img/antena-yagi/dig-m.png)
+![mmana-radiation-pattern](/assets/img/yagi-antenna/dig-m.png)
 
 *Simulated radiation pattern of the designed Yagi-Uda antenna at 915 MHz. Source: Author.*
 
@@ -274,7 +274,7 @@ The simulation results confirm the expected behavior for a 3-element Yagi-Uda op
 
 The Keysight FieldFox RF Vector Network Analyzer was used in the laboratory to verify gain, operating frequency, and S11, which measures the reflection parameter, that is, the amount of signal reflected back at the input port of the device. Three antennas were built, but one of them performed so far below expectations that it will not be covered here.
 
-![fieldfox-vna](/assets/img/antena-yagi/eq1.jpg)
+![fieldfox-vna](/assets/img/yagi-antenna/eq1.jpg)
 
 *Keysight FieldFox RF Vector Network Analyzer used for measurements. Source: Author.*
 
@@ -282,11 +282,11 @@ The Keysight FieldFox RF Vector Network Analyzer was used in the laboratory to v
 
 The negative gain of -17 dBi indicates that the antenna is radiating with lower efficiency than a half-wave dipole in free space. This can be attributed to connection losses, element misalignment, and the influence of the unbalanced cable on the radiation pattern. The unmeasurable bandwidth further confirms that the matching occurs over an excessively narrow range, making the antenna unsuitable for practical 915 MHz applications without proper dimensional and feed corrections.
 
-![antenna-1-photo](/assets/img/antena-yagi/a1.jpg)
+![antenna-1-photo](/assets/img/yagi-antenna/a1.jpg)
 
 *First Yagi-Uda antenna constructed. Source: Author.*
 
-![antenna-1-vna-result](/assets/img/antena-yagi/antena1.jpg)
+![antenna-1-vna-result](/assets/img/yagi-antenna/antena1.jpg)
 
 *VNA measurement result for Antenna 1. Source: Author.*
 
@@ -294,11 +294,11 @@ The negative gain of -17 dBi indicates that the antenna is radiating with lower 
 
 The most likely causes are errors in the physical element lengths, deviations in spacing from the simulated values, and the dielectric effect of the electrical tape used for mechanical fixation, which adds distributed capacitance to the elements and contributes to lowering the resonant frequency. The bandwidth remained zero for the same reason identified in the first antenna, indicating that the mechanical adjustments made were not sufficient to correct the electrical deviations.
 
-![antenna-2-photo](/assets/img/antena-yagi/a2.jpg)
+![antenna-2-photo](/assets/img/yagi-antenna/a2.jpg)
 
 *Second Yagi-Uda antenna constructed. Source: Author.*
 
-![antenna-2-vna-result](/assets/img/antena-yagi/antena2.jpg)
+![antenna-2-vna-result](/assets/img/yagi-antenna/antena2.jpg)
 
 *VNA measurement result for Antenna 2. Source: Author.*
 
@@ -320,10 +320,10 @@ In the second antenna, the mechanical stability was improved, but the element po
 
 Gqrx SDR, "Gqrx SDR -- Open source software defined radio by Alexandru Csete", Gqrx.dk. Available at: [https://www.gqrx.dk/](https://www.gqrx.dk/).
 
-Gogolev, M. & Gontcharenko, I., "MMANA-GAL -- Antenna Analyzing Software", GAL-ANA. Available at: [http://gal-ana.de/basicmm/en/#18](http://gal-ana.de/basicmm/en/#18).
+Gogolev, M. & Gontcharenko, I., "MMANA-GAL -- Antenna Analyzing Software", GAL-ANA. Available at: [https://gal-ana.de/basicmm/en/#18](https://gal-ana.de/basicmm/en/#18).
 
-Hali, "Antenas", SlideServe, 2014. Available at: [https://www.slideserve.com/hali/antenas](https://www.slideserve.com/hali/antenas). Accessed: June 14, 2026.
+Hali, "Antenas", SlideServe, 2014. Available at: [https://www.slideserve.com/hali/antenas](https://www.slideserve.com/hali/antenas).
 
 Ribeiro, J. A. J., Engenharia de Antenas: Fundamentos, Projetos e Aplicacoes. Sao Paulo: Erica, 2004.
 
-Viezbicke, P. P., Yagi Antenna Design, U.S. Department of Commerce, National Bureau of Standards, Washington, DC, USA, NBS Technical Note 688, 1986. Available at: [https://tf.nist.gov/general/pdf/451.pdf](https://tf.nist.gov/general/pdf/451.pdf). Accessed: June 15, 2026.
+Viezbicke, P. P., Yagi Antenna Design, U.S. Department of Commerce, National Bureau of Standards, Washington, DC, USA, NBS Technical Note 688, 1986. Available at: [https://tf.nist.gov/general/pdf/451.pdf](https://tf.nist.gov/general/pdf/451.pdf).
