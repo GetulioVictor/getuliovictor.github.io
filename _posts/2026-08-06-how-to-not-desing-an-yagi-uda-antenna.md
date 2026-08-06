@@ -1,4 +1,3 @@
-```markdown
 ---
 title: "How to NOT design an Yagi-Uda Antenna"
 date: 2026-08-06
@@ -328,4 +327,3 @@ Hali, "Antenas", SlideServe, 2014. Available at: [https://www.slideserve.com/hal
 Ribeiro, J. A. J., Engenharia de Antenas: Fundamentos, Projetos e Aplicacoes. Sao Paulo: Erica, 2004.
 
 Viezbicke, P. P., Yagi Antenna Design, U.S. Department of Commerce, National Bureau of Standards, Washington, DC, USA, NBS Technical Note 688, 1986. Available at: [https://tf.nist.gov/general/pdf/451.pdf](https://tf.nist.gov/general/pdf/451.pdf). Accessed: June 15, 2026.
-```
