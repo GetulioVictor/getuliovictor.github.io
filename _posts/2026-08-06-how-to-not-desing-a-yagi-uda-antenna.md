@@ -1,5 +1,5 @@
 ---
-title: "How to NOT design an Yagi-Uda Antenna"
+title: "How to NOT design a Yagi-Uda Antenna"
 date: 2026-08-06
 categories: ["RF"]
 tags: ["RF", "Telecommunications"]
