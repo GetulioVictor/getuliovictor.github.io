@@ -4,6 +4,8 @@ date: 2026-08-06
 categories: ["RF"]
 tags: ["RF", "Telecommunications"]
 math: true
+redirect_from:
+  - /posts/how-to-not-desing-an-yagi-uda-antenna/
 ---
 
 So last semester at my telecommunications laboratory I received the task of designing a Yagi-Uda antenna, from the initial design on the jurassic software we used (I know there are other alternatives, but at the time I did not want more trouble, I just wanted to get this project done) all the way to physically building it. It was not easy. I made 3 versions and none of them worked as expected, so today I am going to explain what this type of antenna is, what it is used for, how to properly specify one, and most importantly, what I did wrong during the process. I will also cover an additional test using a Flipper Zero to validate the antenna.
@@ -18,7 +20,7 @@ According to the IEEE Std 145-1983, an antenna can be defined as a device for ra
 
 The Yagi-Uda antenna was invented in 1926 by Shintaro Uda and Hidetsugu Yagi. The central idea consists of a single driven dipole (the active element) placed alongside parasitic elements that are not connected to the transmission line. These parasitic elements receive energy through mutual induction and re-radiate the field, shaping the antenna radiation pattern.
 
-The antenna designed in this project has 3 elements: a reflector, a driven element (dipole), and a director. The reflector is positioned behind the active element and generally has a length slightly greater than lambda/2, typically ranging from 0.50 to 0.53 lambda. The driven dipole, when tuned to resonance, has a length of approximately 0.47 to 0.50 lambda. The director is positioned in front of the driven element and has a length shorter than lambda/2, typically between 0.40 and 0.45 lambda.
+The antenna designed in this project has 3 elements: a reflector, a driven element (dipole), and a director. The reflector is positioned behind the active element and generally has a length slightly greater than $\lambda/2$, typically ranging from $0.50$ to $0.53\lambda$. The driven dipole, when tuned to resonance, has a length of approximately $0.47$ to $0.50\lambda$. The director is positioned in front of the driven element and has a length shorter than $\lambda/2$, typically between $0.40$ and $0.45\lambda$.
 
 When analyzing or developing any antenna, there are general characteristics common to all types that must be taken into account:
 
@@ -35,13 +37,13 @@ When analyzing or developing any antenna, there are general characteristics comm
 
 ### Input Impedance
 
-The input impedance Z_e is the impedance seen at the terminals of the active element, where the transmission line connects to the antenna. For a 3-element Yagi-Uda, this value depends not only on the active dipole but also on the mutual interaction between all elements. Its expression is given by:
+The input impedance $Z_e$ is the impedance seen at the terminals of the active element, where the transmission line connects to the antenna. For a 3-element Yagi-Uda, this value depends not only on the active dipole but also on the mutual interaction between all elements. Its expression is given by:
 
 $$
 Z_e = \frac{Z_{11}(Z_{22}Z_{33} - Z_{23}^2) + Z_{12}(2Z_{12}Z_{23} - Z_{12}Z_{33}) - Z_{13}^2 Z_{22}}{Z_{22}Z_{33} - Z_{23}^2}
 $$
 
-where Z_ii are the self-impedances of each element and Z_ij are the mutual impedances between pairs of elements.
+where $Z_{ii}$ are the self-impedances of each element and $Z_{ij}$ are the mutual impedances between pairs of elements.
 
 ---
 
@@ -50,8 +52,7 @@ where Z_ii are the self-impedances of each element and Z_ij are the mutual imped
 The radiation pattern graphically represents how the antenna distributes radiated power in space as a function of direction. For a 3-element Yagi-Uda, the result is a well-defined main lobe concentrated in the direction of the director and a reduced back lobe in the direction of the reflector.
 
 ![radiation-pattern-yagi](/assets/img/yagi-antenna/yagi.jpg)
-
-*Typical radiation pattern of a 3-element Yagi-Uda antenna. Source: Hali, Antenas, SlideServe, 2014.*
+_Typical radiation pattern of a 3-element Yagi-Uda antenna. Source: Hali, Antenas, SlideServe, 2014._
 
 ---
 
@@ -60,8 +61,7 @@ The radiation pattern graphically represents how the antenna distributes radiate
 The beamwidth is defined as the angle formed by the points at which the radiated power density falls to half of its maximum value. This angle is defined as the half-power angle.
 
 ![beamwidth-diagram](/assets/img/yagi-antenna/dig.png)
-
-*Illustration of the antenna beamwidth (half-power angle). Source: Borges, R. M., Antenas, 2026.*
+_Illustration of the antenna beamwidth (half-power angle). Source: Borges, R. M., Antenas, 2026._
 
 ---
 
@@ -73,7 +73,7 @@ $$
 D = \frac{S_{max}}{S_o}
 $$
 
-where S_max is the maximum radiated power density and S_o is the power density of the reference isotropic antenna.
+where $S_{max}$ is the maximum radiated power density and $S_o$ is the power density of the reference isotropic antenna.
 
 ---
 
@@ -85,7 +85,7 @@ $$
 G_{(dBi)} = 10\log(\eta_I \times D)
 $$
 
-where eta_I = P_i / P_e is the radiation efficiency, P_i is the radiated power, and P_e is the power delivered to the antenna.
+where $\eta_I = P_i / P_e$ is the radiation efficiency, $P_i$ is the radiated power, and $P_e$ is the power delivered to the antenna.
 
 ---
 
@@ -101,7 +101,7 @@ $$
 
 ### Front-to-Back Ratio
 
-The front-to-back ratio R_fb is the ratio between the power density at the peak of the main lobe and the power density radiated in the opposite direction. It indicates how well the antenna rejects signals coming from behind:
+The front-to-back ratio $R_{fb}$ is the ratio between the power density at the peak of the main lobe and the power density radiated in the opposite direction. It indicates how well the antenna rejects signals coming from behind:
 
 $$
 R_{fb}\,(dB) = 10\log\frac{S_{max}}{S_c}
@@ -128,9 +128,9 @@ $$
 $$
 
 where:
-- lambda is the wavelength (m)
-- c is the speed of light in vacuum (approximately 3 x 10^8 m/s)
-- f is the operating frequency (915 x 10^6 Hz)
+- $\lambda$ is the wavelength (m)
+- $c$ is the speed of light in vacuum (approximately $3 \times 10^8$ m/s)
+- $f$ is the operating frequency ($915 \times 10^6$ Hz)
 
 Substituting the project values:
 
@@ -144,9 +144,9 @@ $$
 L_{real} = \frac{\lambda}{2} \cdot 0.95 = \frac{3 \times 10^8}{2 \cdot (915 \times 10^6)} \cdot 0.95 \approx 155.7\,\text{mm}
 $$
 
-where the coefficient 0.95 represents the electrical shortening factor (V_f) adopted to mitigate the tip effect at the conductor ends.
+where the coefficient 0.95 represents the electrical shortening factor ($V_f$) adopted to mitigate the tip effect at the conductor ends.
 
-From there, the parasitic element dimensions and spacings can be determined using empirical tables and recommendations from the literature. According to the standard, for short antennas the recommended spacing between the reflector and the driven element, and between the driven element and the director, is approximately 0.2 lambda:
+From there, the parasitic element dimensions and spacings can be determined using empirical tables and recommendations from the literature. According to the standard, for short antennas the recommended spacing between the reflector and the driven element, and between the driven element and the director, is approximately $0.2\lambda$:
 
 $$
 d_{re} = d_{ed} = 0.20 \cdot \lambda = 0.20 \cdot 328\,\text{mm} = 65.6\,\text{mm}
@@ -158,11 +158,10 @@ $$
 \frac{d}{\lambda} = \frac{2\,\text{mm}}{328\,\text{mm}} \approx 0.0061
 $$
 
-Consulting the dimension curves for director and reflector elements (shown below), the recommended lengths for this ratio are approximately 0.484 lambda for the reflector and 0.449 lambda for the director.
+Consulting the dimension curves for director and reflector elements (shown below), the recommended lengths for this ratio are approximately $0.484\lambda$ for the reflector and $0.449\lambda$ for the director.
 
 ![nbs-yagi-curves](/assets/img/yagi-antenna/curvas-dimensao-diretor-refletor.png)
-
-*Graph relating the diameter-to-wavelength ratio to the length of the parasitic elements. Source: Viezbicke, P. P., Yagi Antenna Design, NBS Technical Note 688, 1986.*
+_Graph relating the diameter-to-wavelength ratio to the length of the parasitic elements. Source: Viezbicke, P. P., Yagi Antenna Design, NBS Technical Note 688, 1986._
 
 Therefore:
 
@@ -178,25 +177,25 @@ The full set of theoretical dimensions is summarized in the table below.
 
 | Element / Parameter | Proportion Factor | Physical Dimension (mm) |
 |---|---|---|
-| Reflector (Length) | 0.484 lambda | 158.7 |
-| Driven Element (Length) | 0.475 lambda | 157.7 |
-| Director 1 (Length) | 0.449 lambda | 147.3 |
-| Rear Spacing (d_re) | 0.200 lambda | 65.6 |
-| Front Spacing (d_ed) | 0.200 lambda | 65.6 |
+| Reflector (Length) | $0.484\lambda$ | 158.7 |
+| Driven Element (Length) | $0.475\lambda$ | 157.7 |
+| Director 1 (Length) | $0.449\lambda$ | 147.3 |
+| Rear Spacing ($d_{re}$) | $0.200\lambda$ | 65.6 |
+| Front Spacing ($d_{ed}$) | $0.200\lambda$ | 65.6 |
 
-*Table 1: Theoretical geometric dimensions calculated for the Yagi-Uda antenna.*
+_Table 1: Theoretical geometric dimensions calculated for the Yagi-Uda antenna._
 
 These values, however, did not yield satisfactory performance in simulation. To address this, several iterations were performed based on the NBS standard, the reference book, and other sources, aiming to achieve input impedance close to 50 ohms and SWR close to 1.0. The final dimensions used for prototyping are shown in the table below.
 
 | Element / Parameter | Proportion Factor | Physical Dimension (mm) |
 |---|---|---|
-| Reflector (Length) | 0.482 lambda | 158.0 |
-| Driven Element (Length) | 0.463 lambda | 152.0 |
-| Director 1 (Length) | 0.415 lambda | 136.0 |
-| Rear Spacing (d_re) | 0.259 lambda | 85.0 |
-| Front Spacing (d_ed) | 0.183 lambda | 60.0 |
+| Reflector (Length) | $0.482\lambda$ | 158.0 |
+| Driven Element (Length) | $0.463\lambda$ | 152.0 |
+| Director 1 (Length) | $0.415\lambda$ | 136.0 |
+| Rear Spacing ($d_{re}$) | $0.259\lambda$ | 85.0 |
+| Front Spacing ($d_{ed}$) | $0.183\lambda$ | 60.0 |
 
-*Table 2: Adjusted and optimized geometric dimensions for the Yagi-Uda antenna.*
+_Table 2: Adjusted and optimized geometric dimensions for the Yagi-Uda antenna._
 
 ---
 
@@ -221,14 +220,12 @@ For complementary validation, an RTL-SDR with GQRX was used for reception and a 
 Additional tests were performed to validate the second antenna using GQRX, an open-source SDR (Software Defined Radio) application that helps visualize how the signal is received by the RTL-SDR when the Flipper Zero is used as a transmitter. The coaxial cable is connected to the RTL-SDR on one end and wrapped around the driven dipole on the other end. Due to soldering issues, a loss of approximately 3 to 4 dB is expected at this connection.
 
 ![rtl-sdr](/assets/img/yagi-antenna/rtl.jpg)
-
-*RTL-SDR receiver used in the complementary tests. Source: Author.*
+_RTL-SDR receiver used in the complementary tests. Source: Author._
 
 For signal transmission, the following procedure was used on the Flipper Zero: select Sub-GHz, then Read Raw, then Config, set the frequency to 915 MHz, record the signal, and then select it for transmission.
 
 ![flipper-zero-procedure](/assets/img/yagi-antenna/flipper.jpg)
-
-*Flipper Zero configuration procedure for signal transmission at 915 MHz. Source: Author.*
+_Flipper Zero configuration procedure for signal transmission at 915 MHz. Source: Author._
 
 The dBFS unit refers to the signal level relative to the maximum digitizable value (Full Scale) of an ADC/DAC converter.
 
@@ -237,12 +234,10 @@ When there is no transmission, the dBFS values show the background noise floor o
 When the signal is transmitted, the dBFS value shows the signal level relative to full scale. Peaks in dBFS above the noise floor indicate the presence of the signal, and the difference between the signal peak and the noise floor gives the approximate SNR. The signal was found at -47 dBFS over a noise floor of -62 dBFS, giving an SNR of approximately 15 dB.
 
 ![gqrx-screenshot-1](/assets/img/yagi-antenna/simulacao-gqr.jpg)
-
-*GQRX waterfall and spectrum display during the test. Source: Author.*
+_GQRX waterfall and spectrum display during the test. Source: Author._
 
 ![gqrx-screenshot-2](/assets/img/yagi-antenna/simu-gqrx.jpg)
-
-*GQRX spectrum detail showing the received signal at 915 MHz. Source: Author.*
+_GQRX spectrum detail showing the received signal at 915 MHz. Source: Author._
 
 ---
 
@@ -255,18 +250,15 @@ In MMANA-GAL, each antenna element was manually entered using its Cartesian star
 Element 1 is the driven dipole, positioned at the origin with a total length of 152 mm. Element 2 is the reflector, displaced 85 mm behind the dipole with a length of 158 mm, slightly longer than the dipole as predicted by Yagi-Uda theory. Element 3 is the director, positioned 60 mm in front of the dipole with a length of 136 mm, shorter than the dipole, also consistent with the theoretical design. All elements lie in the XY plane with Z = 0, characterizing a linear planar antenna.
 
 ![mmana-element-values](/assets/img/yagi-antenna/val.png)
-
-*Element coordinates and dimensions as entered in MMANA-GAL. Source: Author.*
+_Element coordinates and dimensions as entered in MMANA-GAL. Source: Author._
 
 The simulation results confirm the expected behavior for a 3-element Yagi-Uda operating at 915 MHz in free space. The main lobe is well defined, with a gain of 7.17 dBi, and the front-to-back ratio of 14.97 dB demonstrates good rejection of signals coming from the rear. The input impedance of 48.81 + j1.56 ohms and SWR of 1.0 indicate that, in the simulated model, the matching with the 50 ohm line is nearly ideal. These results, however, represent an idealized condition, and the deviations observed in the physical measurements reinforce the influence of mechanical imperfections and the absence of a balun on real-world performance.
 
 ![mmana-calculate-results](/assets/img/yagi-antenna/calc.png)
-
-*MMANA-GAL Calculate results (No Loss condition). Source: Author.*
+_MMANA-GAL Calculate results (No Loss condition). Source: Author._
 
 ![mmana-radiation-pattern](/assets/img/yagi-antenna/dig-m.png)
-
-*Simulated radiation pattern of the designed Yagi-Uda antenna at 915 MHz. Source: Author.*
+_Simulated radiation pattern of the designed Yagi-Uda antenna at 915 MHz. Source: Author._
 
 ---
 
@@ -275,32 +267,27 @@ The simulation results confirm the expected behavior for a 3-element Yagi-Uda op
 The Keysight FieldFox RF Vector Network Analyzer was used in the laboratory to verify gain, operating frequency, and S11, which measures the reflection parameter, that is, the amount of signal reflected back at the input port of the device. Three antennas were built, but one of them performed so far below expectations that it will not be covered here.
 
 ![fieldfox-vna](/assets/img/yagi-antenna/eq1.jpg)
-
-*Keysight FieldFox RF Vector Network Analyzer used for measurements. Source: Author.*
+_Keysight FieldFox RF Vector Network Analyzer used for measurements. Source: Author._
 
 **Antenna 1** resonated at 922 MHz with G = -17 dBi, S11 = -10 dB, and an indeterminate bandwidth. The 7 MHz shift above the target frequency of 915 MHz indicates that the elements are slightly too short, pushing the resonant frequency up. An S11 of -10 dB, while borderline acceptable, reveals insufficient impedance matching between the antenna and the 50 ohm transmission line, likely worsened by the absence of a balun and by the mechanical imperfections of the construction.
 
 The negative gain of -17 dBi indicates that the antenna is radiating with lower efficiency than a half-wave dipole in free space. This can be attributed to connection losses, element misalignment, and the influence of the unbalanced cable on the radiation pattern. The unmeasurable bandwidth further confirms that the matching occurs over an excessively narrow range, making the antenna unsuitable for practical 915 MHz applications without proper dimensional and feed corrections.
 
 ![antenna-1-photo](/assets/img/yagi-antenna/a1.jpg)
-
-*First Yagi-Uda antenna constructed. Source: Author.*
+_First Yagi-Uda antenna constructed. Source: Author._
 
 ![antenna-1-vna-result](/assets/img/yagi-antenna/antena1.jpg)
-
-*VNA measurement result for Antenna 1. Source: Author.*
+_VNA measurement result for Antenna 1. Source: Author._
 
 **Antenna 2** maintained S11 close to -10 dB, but the measured resonant frequency shifted significantly to approximately 789 MHz, well below the target of 915 MHz. This downward shift indicates that the elements are electrically longer than specified in the design.
 
 The most likely causes are errors in the physical element lengths, deviations in spacing from the simulated values, and the dielectric effect of the electrical tape used for mechanical fixation, which adds distributed capacitance to the elements and contributes to lowering the resonant frequency. The bandwidth remained zero for the same reason identified in the first antenna, indicating that the mechanical adjustments made were not sufficient to correct the electrical deviations.
 
 ![antenna-2-photo](/assets/img/yagi-antenna/a2.jpg)
-
-*Second Yagi-Uda antenna constructed. Source: Author.*
+_Second Yagi-Uda antenna constructed. Source: Author._
 
 ![antenna-2-vna-result](/assets/img/yagi-antenna/antena2.jpg)
-
-*VNA measurement result for Antenna 2. Source: Author.*
+_VNA measurement result for Antenna 2. Source: Author._
 
 ---
 

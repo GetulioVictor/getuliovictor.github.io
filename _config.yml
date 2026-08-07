@@ -151,6 +151,9 @@ pwa:
 
 paginate: 10
 
+plugins:
+  - jekyll-redirect-from
+
 # The base URL of your site
 baseurl: ""
 
