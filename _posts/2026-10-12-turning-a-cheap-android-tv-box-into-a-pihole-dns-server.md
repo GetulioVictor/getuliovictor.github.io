@@ -92,6 +92,39 @@ sudo picocom -b 1500000 /dev/ttyUSB0 --logfile ~/boot.log
 
 The RK3229 talks at 1,500,000 baud. Start picocom before plugging in the box to catch the first lines. Exit with Ctrl+A, then Ctrl+X.
 
+My first capture started late, with Android already booting. It still confirmed the wiring and the baud rate were right, and showed a few useful things: the Ethernet port working at 100 Mbps, and the SD card being detected after I inserted it with Android running (Android simply could not mount the Armbian partition):
+
+```
+[   27.364426] PHY driver name: Rockchip integrated EPHY
+...
+[   52.790035] mmc1: new high speed SDXC card at address b368
+[   52.797774] mmcblk1: mmc1:b368 SDABC 117 GiB
+[   52.802974]  mmcblk1: p1
+[   53.086081] EXT4-fs (mmcblk1p1): Couldn't mount because of unsupported optional features (2000)
+...
+[  118.874708] libphy: stmmac-0:01 - Link is Up - 100/Full
+```
+
+None of that explains why the box would not boot from the card, though. For that, I needed the log from power-on, with the card already inserted.
+
+My first capture was Android booting from the eMMC, with the SD card inserted only after the system was up. It confirmed the wiring and the baud rate were right, and showed something interesting: Android saw the Armbian card (`mmcblk1`) but could not mount its ext4 partition.
+
+```
+[   27.364426] PHY driver name: Rockchip integrated EPHY
+...
+[   51.254489] rk_sdmmc: BOOT   The card is removed..  ===!!!!!!==[mmc1]
+[   52.511110] rk_sdmmc: BOOT   The card is inserted.  ===!!!!!!==[mmc1]
+[   52.790035] mmc1: new high speed SDXC card at address b368
+[   52.797774] mmcblk1: mmc1:b368 SDABC 117 GiB
+[   52.802974]  mmcblk1: p1
+[   53.085997] EXT4-fs (mmcblk1p1): Ignoring removed nomblk_io_submit option
+[   53.086081] EXT4-fs (mmcblk1p1): Couldn't mount because of unsupported optional features (2000)
+...
+[  118.874708] libphy: stmmac-0:01 - Link is Up - 100/Full
+```
+
+That log starts 26 seconds into the boot, so it misses the part that matters. To see why the box would not boot from SD, the capture has to start with the card already inserted and picocom open before the power is plugged in.
+
 ### 1.4 Why the SD card was ignored
 
 With the card inserted, the log showed this:
@@ -214,7 +247,24 @@ SDM_Read FLT_ERROR, LBA = e90000, iret = 4
 ![backup-attempt](/assets/img/tv-box/backup-android.png)
 _The backup attempt with `rkdeveloptool rl`. It reports completion, but the dump made in Loader mode is incomplete. Source: Author._
 
-The same offset explains why erasing with `ef` in Loader mode did not help either: after the erase, the serial console still showed `Boot1 Release Time: 2017-06-12`, because the old bootloader sits in the first 4 MB that Loader mode cannot reach.
+The same offset explains why erasing with `ef` in Loader mode did not help either. After the erase, the old loader was still there, now with nothing left to boot:
+
+```
+DDR Version V1.06 20171026
+...
+Boot1 Release Time: 2017-06-12, version: 2.37
+ChipType = 0xc, 293
+SdmmcInit=2 0
+BootCapSize=2000
+UserCapSize=7456MB
+FwPartOffset=2000 , 2000
+SdmmcInit=0 2
+StorageInit ok = 47747
+...
+powerOn 730646
+```
+
+`FwPartOffset=2000` is the 4 MB offset itself (0x2000 sectors). The rest of the eMMC was wiped, but the bootloader sits in those first 4 MB that Loader mode cannot reach, so it kept taking priority over the SD card.
 
 ### 1.7 Building the loader
 
@@ -317,6 +367,8 @@ ip -s link show end0
 ```
 
 RX was stuck at 0 packets while TX kept climbing. The box was sending, but receiving nothing at all, not even the router's IPv6 announcements. The driver loaded fine, the link came up at 100 Mbps full duplex, and I spent a while suspecting a kernel regression, since I was running a trunk build.
+
+The link status did not help either. Android's serial log had already shown `Link is Up - 100/Full` on this port (section 1.3), and Armbian showed the same. A cable with one broken pair can still negotiate a link, so "link up" proves very little.
 
 It was the cable. One of the receive pairs was broken. A new cable fixed it instantly.
 
