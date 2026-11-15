@@ -1,6 +1,6 @@
 ---
 title: "Jamming an FM Station Without Transmitting Anything: A Simulated Jammer in GNU Radio"
-date: 2026-10-23
+date: 2026-11-14
 categories: ["RF"]
 tags: ["RF", "Telecommunications", "SDR", "GNU Radio"]
 math: true
