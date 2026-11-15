@@ -8,10 +8,6 @@ math: true
 
 A while ago I attended a mini-course on GNU Radio, and one of the labs was building a jammer. Before anyone calls Anatel on me: nothing was transmitted. The idea is to receive a real FM broadcast station with an RTL-SDR and then add the interference digitally, inside the flowgraph, so you can see and hear what jamming does to a signal without disturbing anyone else's spectrum. Today I am going to explain the telecommunications concepts behind it, walk through every block of the flowgraph, show how I got the RTL-SDR working on Linux (which was honestly half the battle), and present the results. And, as in my [Yagi-Uda post](/posts/how-to-not-design-a-yagi-uda-antenna/), I will also point out two things in the flowgraph that do not do exactly what they appear to do.
 
-<!-- IMAGE (optional hero): a screenshot of the running GUI with the jammer tone visible on the waterfall -->
-![jammer-hero](/assets/img/gnu-radio-jammer/hero.png)
-_The simulated jammer running: a real FM station and a digitally injected carrier._
-
 > Transmitting signals with the intent of interfering with radio communications is illegal in Brazil (Anatel), in the United States (FCC, 47 U.S.C. §333) and in practically every other country. Everything in this post happens in software: the RTL-SDR is a receive-only device, and the interference only exists as numbers added to the received samples.
 {: .prompt-danger }
 
@@ -192,10 +188,6 @@ The default value of `freq` is 107.7 MHz because there is a local FM station ope
 The default value of `freq_jm`, 102.3 MHz, came from the mini-course flowgraph. As the [Closer Look](#a-closer-look-two-blocks-that-dont-do-what-they-seem) section shows, this value combined with the Signal Source sample rate is what places the carrier inside the 107.7 MHz channel, even though 102.3 MHz is nowhere near it.
 
 `JAMMING_Power` starts at 0 so that the flowgraph opens with the jammer off, and the station can be heard clean before any interference is added. Despite the name, it controls amplitude, not power, as explained in the SNR section.
-
-<!-- IMAGE: screenshot of the three sliders in the running GUI -->
-![gui-sliders](/assets/img/gnu-radio-jammer/sliders.png)
-_Sliders available in the graphical interface._
 
 ---
 
