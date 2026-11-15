@@ -1,0 +1,41 @@
+<!-- Custom additions to <head> (Chirpy loads this file on every page) -->
+
+<style>
+  .translate-links { font-size: 0.9rem; color: var(--text-muted-color); margin-bottom: 1.5rem; }
+  .translate-links a { margin: 0 0.15rem; }
+</style>
+
+{% if page.layout == 'post' and page.translate != false %}
+<!-- "Read in" links: open the post translated by Google Translate -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const content = document.querySelector('article .content');
+    if (!content) return;
+
+    const url = '{{ page.url | absolute_url | url_encode }}';
+    const langs = { pt: 'Português', es: 'Español', fr: 'Français', de: 'Deutsch' };
+
+    const links = Object.entries(langs)
+      .map(([code, name]) =>
+        `<a href="https://translate.google.com/translate?sl=en&tl=${code}&u=${url}" target="_blank" rel="noopener">${name}</a>`)
+      .join(' · ');
+
+    const box = document.createElement('p');
+    box.className = 'translate-links';
+    box.setAttribute('translate', 'no');
+    box.innerHTML = `<i class="fas fa-language"></i> Read in: ${links}`;
+    content.prepend(box);
+  });
+</script>
+{% endif %}
+
+<!-- Keep code blocks and equations untouched by any translator -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const protect = () =>
+      document.querySelectorAll('pre, code, mjx-container')
+        .forEach(el => el.setAttribute('translate', 'no'));
+    protect();
+    new MutationObserver(protect).observe(document.body, { childList: true, subtree: true });
+  });
+</script>
